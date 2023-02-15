@@ -40,10 +40,11 @@ stages:
       vmImage: ubuntu-22.04
     steps:
     - bash: |
+        whoami
         wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
-        sudo apt install ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
+        apt install ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
         wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/openssl_1.1.1f-1ubuntu2.17_amd64.deb
-        sudo apt install ./openssl_1.1.1f-1ubuntu2.17_amd64.deb
+        apt install ./openssl_1.1.1f-1ubuntu2.17_amd64.deb
 
         dotnet restore dotnet-packaging.sln
         dotnet pack dotnet-packaging.sln -c Release -o $(Build.ArtifactStagingDirectory)
