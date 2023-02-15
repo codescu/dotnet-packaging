@@ -351,5 +351,5 @@ stages:
       inputs:
         command: push
         packagesToPush: '$(System.ArtifactsDirectory)/nuget/*.nupkg'
-        publishFeedCredentials: 'NuGet'
+        publishFeedCredentials: 'nugetsvc'
         nuGetFeedType: external
