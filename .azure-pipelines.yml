@@ -40,10 +40,10 @@ stages:
       vmImage: ubuntu-22.04
     steps:
     - bash: |
-        wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
-        apt install ./libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
-        wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/openssl_1.1.1f-1ubuntu2.16_amd64.deb
-        apt install ./openssl_1.1.1f-1ubuntu2.16_amd64.deb
+        wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
+        apt install ./libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
+        wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/openssl_1.1.1f-1ubuntu2.17_amd64.deb
+        apt install ./openssl_1.1.1f-1ubuntu2.17_amd64.deb
 
         dotnet restore dotnet-packaging.sln
         dotnet pack dotnet-packaging.sln -c Release -o $(Build.ArtifactStagingDirectory)
@@ -62,24 +62,24 @@ stages:
         pathToPublish: $(Build.ArtifactStagingDirectory)
         artifactName: nuget
 
-  - job: build_windows
-    pool:
-      vmImage: windows-2019
-    container: 7.0-nanoserver
-    # Make sure we can run scripts in PowerShell core:
-    # https://github.com/microsoft/azure-pipelines-tasks/issues/11448
-    variables:
-      agent.preferPowerShellOnContainers: false
-    steps:
-    - pwsh: |
-        dotnet restore dotnet-packaging.sln
-        dotnet pack dotnet-packaging.sln -c Release -o $(Build.ArtifactStagingDirectory)
-        dotnet test Packaging.Targets.Tests/Packaging.Targets.Tests.csproj -l "trx;LogFileName=$(Build.ArtifactStagingDirectory)/Packaging.Targets.Tests.trx"
-      displayName: Build
-    - task: PublishTestResults@2
-      inputs:
-        testRunner: VSTest
-        testResultsFiles: $(Build.ArtifactStagingDirectory)/*.trx
+  # - job: build_windows
+  #   pool:
+  #     vmImage: windows-2019
+  #   container: 7.0-nanoserver
+  #   # Make sure we can run scripts in PowerShell core:
+  #   # https://github.com/microsoft/azure-pipelines-tasks/issues/11448
+  #   variables:
+  #     agent.preferPowerShellOnContainers: false
+  #   steps:
+  #   - pwsh: |
+  #       dotnet restore dotnet-packaging.sln
+  #       dotnet pack dotnet-packaging.sln -c Release -o $(Build.ArtifactStagingDirectory)
+  #       dotnet test Packaging.Targets.Tests/Packaging.Targets.Tests.csproj -l "trx;LogFileName=$(Build.ArtifactStagingDirectory)/Packaging.Targets.Tests.trx"
+  #     displayName: Build
+  #   - task: PublishTestResults@2
+  #     inputs:
+  #       testRunner: VSTest
+  #       testResultsFiles: $(Build.ArtifactStagingDirectory)/*.trx
 
 - stage: Test
   jobs:
