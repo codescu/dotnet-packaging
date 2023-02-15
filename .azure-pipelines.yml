@@ -35,7 +35,7 @@ stages:
 - stage: Build
   jobs:
   - job: build_focal
-    container: 6.0-focal
+    container: 7.0-jammy
     pool:
       vmImage: ubuntu-20.04
     steps:
