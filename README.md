@@ -25,10 +25,10 @@ Did we miss anything? Feel free to file a feature request, or send a PR!
 First, install the .NET Packaging tools. You don't need to install all tools if you only plan to use one.
 
 ```bash
-dotnet tool install --global dotnet-zip
-dotnet tool install --global dotnet-tarball
-dotnet tool install --global dotnet-rpm
-dotnet tool install --global dotnet-deb
+dotnet tool install --global dotnet-xzip
+dotnet tool install --global dotnet-xtarball
+dotnet tool install --global dotnet-xrpm
+dotnet tool install --global dotnet-xdeb
 ```
 
 Then, in your project directory, run `dotnet {zip|tarball|rpm|deb} install` to add the tool to your project:

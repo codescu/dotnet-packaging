@@ -264,14 +264,14 @@ stages:
         echo "<configuration><packageSources><add key='local' value='$(Build.ArtifactStagingDirectory)/nuget' /></packageSources></configuration>" > NuGet.config
         version=$(cat $(Build.ArtifactStagingDirectory)/nuget/version.txt)
 
-        # Install the dotnet-rpm and dotnet-deb tools
-        dotnet tool install --global dotnet-deb --version $version --add-source $(Build.ArtifactStagingDirectory)/nuget
-        dotnet tool install --global dotnet-rpm --version $version --add-source $(Build.ArtifactStagingDirectory)/nuget
+        # Install the dotnet-xrpm and dotnet-dxeb tools
+        dotnet tool install --global dotnet-xdeb --version $version --add-source $(Build.ArtifactStagingDirectory)/nuget
+        dotnet tool install --global dotnet-xrpm --version $version --add-source $(Build.ArtifactStagingDirectory)/nuget
 
         # Create .deb and .rpm packages
-        dotnet rpm install
-        dotnet rpm -o $(Build.SourcesDirectory)/molecule/$(suite)/ -f $(framework)
-        dotnet deb -o $(Build.SourcesDirectory)/molecule/$(suite)/ -f $(framework)
+        dotnet xrpm install
+        dotnet xrpm -o $(Build.SourcesDirectory)/molecule/$(suite)/ -f $(framework)
+        dotnet xdeb -o $(Build.SourcesDirectory)/molecule/$(suite)/ -f $(framework)
       workingDirectory: $(Build.SourcesDirectory)/molecule/$(suite)
       displayName: Build $(suite)-app for $(framework)
     - bash: |
