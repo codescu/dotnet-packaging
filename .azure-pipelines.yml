@@ -60,7 +60,7 @@ stages:
   - job: build_windows
     pool:
       vmImage: windows-2019
-    container: 6.0-nanoserver
+    container: 7.0-nanoserver
     # Make sure we can run scripts in PowerShell core:
     # https://github.com/microsoft/azure-pipelines-tasks/issues/11448
     variables:
