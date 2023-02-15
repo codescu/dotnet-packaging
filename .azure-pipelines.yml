@@ -39,6 +39,15 @@ stages:
     pool:
       vmImage: ubuntu-18.04
     steps:
+    - checkout: self
+      fetchDepth: 0
+      persistCredentials: true
+      clean: true
+      lfs: true
+    - task: UseGitVersion@5
+      displayName: Version with git tag
+      inputs:
+        versionSpec: '5.x'
     - bash: |
         whoami
         # wget -c http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb
